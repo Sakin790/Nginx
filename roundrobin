@@ -1,0 +1,25 @@
+# ১. Upstream ব্লক: এখানে ৩টি পোর্টকে একটি টিমে গ্রুপিং করা হচ্ছে
+upstream my_node_cluster {
+    server 127.0.0.1:3000;
+    server 127.0.0.1:3001;
+    server 127.0.0.1:3002;
+}
+
+# ২. Server ব্লক: প্রক্সি হিসেবে ট্রাফিক হ্যান্ডেল করবে
+server {
+    listen 80;
+    server_name 10.185.173.219; # আপনার IP
+
+    location / {
+        # সরাসরি পোর্টের বদলে upstream গ্রুপটিকে কল করা হচ্ছে
+        proxy_pass http://my_node_cluster;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}

@@ -1,0 +1,12 @@
+echo 'export TERM=xterm-256color' >> ~/.bashrc
+
+http://10.185.173.219/
+/etc/nginx/nginx.conf
+
+sudo usermod -aG docker $USER
+newgrp docker
+docker pull sakin79/backend_services:latest
+docker run -d --name backend_services -p 3000:3000 sakin79/backend_services:latest
+
+
+

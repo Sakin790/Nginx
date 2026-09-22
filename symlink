@@ -1,0 +1,29 @@
+সব সময় যেকোনো নতুন সাইট বা প্রজেক্টের কনফিগারেশন /etc/nginx/sites-available/ ফোল্ডারে লিখবেন।
+
+সহজ নিয়ম বা ওয়ার্কফ্লো (Workflow) হলো:
+
+কনফিগারেশন তৈরি/এডিট করা:
+সব সময় /etc/nginx/sites-available/ ফোল্ডারে ফাইল বানাবেন বা এডিট করবেন (যেমন: /etc/nginx/sites-available/nodeApp.conf বা আপনার অন্য কোনো প্রজেক্টের নাম)।
+
+সাইট চালু (Enable) করা:
+ফাইল লেখা শেষ হলে ফাইলটিকে /etc/nginx/sites-enabled/ ফোল্ডারে সিমলিংক (Symlink) করে দেবেন:
+
+Bash
+sudo ln -s /etc/nginx/sites-available/<আপনার-ফাইলের-নাম> /etc/nginx/sites-enabled/
+সাইট বন্ধ (Disable) করতে চাইলে:
+যদি কখনো কোনো প্রজেক্ট সাময়িকভাবে বন্ধ রাখতে চান, তাহলে আসল ফাইলটি মোছার দরকার নেই। শুধু sites-enabled ফোল্ডার থেকে সিমলিংকটি মুছে ফেলে রিলোড দিলেই সাইট বন্ধ হয়ে যাবে:
+
+Bash
+sudo rm /etc/nginx/sites-enabled/<আপনার-ফাইলের-নাম>
+sudo systemctl reload nginx
+টেস্ট ও রিলোড:
+যেকোনো পরিবর্তনের পর সব সময় এই দুটি কমান্ড দেবেন:
+
+Bash
+sudo nginx -t
+sudo systemctl reload nginx
+সংক্ষেপে:
+
+লিখবেন: /etc/nginx/sites-available/
+
+অ্যাক্টিভ করবেন: sites-enabled-এ লিঙ্ক বানিয়ে।
