@@ -8,5 +8,16 @@ newgrp docker
 docker pull sakin79/backend_services:latest
 docker run -d --name backend_services -p 3000:3000 sakin79/backend_services:latest
 
+-----------Docker-----------
+docker build -t backend_services .
+docker tag backend_services:latest sakin79/backend_services:latest
+docker push sakin79/backend_services:latest
+docker pull sakin79/backend_services:latest
+docker run -d -p 8001:3000 --name my_backend sakin79/backend_services:latest
+
+
+docker run -d --name app-v1 -p 8081:80 nginxdemos/hello:plain-text
+
+docker run -d --name app-v1 -p 8081:80 nginxdemos/hello:plain-text
 
 
